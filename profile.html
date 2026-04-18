@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya | Adidas Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=AdihausDIN:wght@400;700&display=swap');
+        body { 
+            font-family: 'AdihausDIN', sans-serif; 
+            background-color: #f9f9f9;
+        }
+        .bg-gradient-adidas {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="text-black">
+
+    <nav class="bg-white border-b border-gray-100 py-4 px-6 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="hover:opacity-70 transition">
+                <img class="h-8 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas">
+            </a>
+            <div class="flex items-center space-x-4">
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Verified Member</span>
+                <div class="w-8 h-8 rounded-full border border-black overflow-hidden shadow-sm">
+                    <img src="https://i.pinimg.com/736x/03/8a/f4/038af43d45ba955d98b887a0a803290b.jpg" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-gradient-adidas text-white pt-20 pb-32 px-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8">
+            <div class="relative">
+                <div class="w-40 h-40 rounded-full border-[6px] border-white/10 p-1 overflow-hidden shadow-2xl">
+                    <img src="https://i.pinimg.com/736x/03/8a/f4/038af43d45ba955d98b887a0a803290b.jpg" alt="Rifky Candra" class="w-full h-full object-cover rounded-full">
+                </div>
+                <div class="absolute bottom-2 right-2 bg-[#ede734] text-black text-[10px] font-bold px-2 py-1 rounded shadow-lg uppercase italic">Level 1</div>
+            </div>
+            <div class="text-center md:text-left">
+                <h1 class="text-5xl font-bold italic uppercase tracking-tighter leading-none mb-2">Rifky Candra</h1>
+                <p class="text-gray-400 text-sm font-bold uppercase tracking-[0.3em] mb-6">Member since 2026</p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                    <div class="bg-white/10 px-4 py-2 rounded-sm border border-white/20">
+                        <p class="text-[10px] uppercase text-gray-400 font-bold">Points</p>
+                        <p class="text-xl font-bold italic">1,500 <span class="text-[10px] not-italic">PTS</span></p>
+                    </div>
+                    <div class="bg-white/10 px-4 py-2 rounded-sm border border-white/20">
+                        <p class="text-[10px] uppercase text-gray-400 font-bold">Vouchers</p>
+                        <p class="text-xl font-bold italic">3 <span class="text-[10px] not-italic">AVAIL</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-5xl mx-auto px-6 -mt-16 pb-24">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-1">
+                <div class="glass-card p-6 rounded-sm shadow-xl sticky top-24">
+                    <nav class="flex flex-col space-y-1">
+                        <a href="#" class="flex items-center justify-between bg-black text-white p-4 font-bold uppercase text-xs tracking-widest italic transition">
+                            Personal Info <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-between hover:bg-gray-100 p-4 font-bold uppercase text-xs tracking-widest italic transition text-gray-500 hover:text-black">
+                            Order History <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                        <a href="#" class="flex items-center justify-between hover:bg-gray-100 p-4 font-bold uppercase text-xs tracking-widest italic transition text-gray-500 hover:text-black">
+                            adiClub Rewards <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                        <a href="index.html" class="flex items-center justify-between hover:bg-red-50 p-4 font-bold uppercase text-xs tracking-widest italic transition text-red-600 border-t border-gray-100 mt-4">
+                            Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-8">
+                <div class="bg-white p-8 shadow-xl border border-gray-100 relative">
+                    <div class="flex justify-between items-center mb-10">
+                        <h2 class="text-2xl font-bold uppercase italic tracking-tighter">My Settings</h2>
+                        <button class="text-[10px] font-bold uppercase underline tracking-widest hover:text-blue-600 transition">Edit Details</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Full Name</label>
+                            <p class="text-lg font-bold border-b border-gray-100 pb-2">Rifky Candra</p>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Email Address</label>
+                            <p class="text-lg font-bold border-b border-gray-100 pb-2">rorikyy955@gmail.com</p>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Phone Number</label>
+                            <p class="text-lg font-bold border-b border-gray-100 pb-2">+62 822 3123 5341</p>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-gray-400 tracking-widest">Date of Birth</label>
+                            <p class="text-lg font-bold border-b border-gray-100 pb-2">03 Maret 2009</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 p-6 bg-gray-50 border-l-4 border-black italic">
+                        <p class="text-xs font-bold uppercase mb-2">Adidas Member Policy</p>
+                        <p class="text-[11px] text-gray-500 leading-relaxed">Data Anda aman bersama kami. Kami menggunakan enkripsi standar industri untuk melindungi informasi pribadi Anda.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 shadow-xl border border-gray-100 overflow-hidden relative group">
+                    <i class="fa-solid fa-trophy absolute -right-4 -bottom-4 text-9xl text-gray-50 group-hover:text-yellow-100 transition-colors duration-500"></i>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold uppercase italic mb-6">adiClub Progress</h3>
+                        <div class="flex justify-between text-[10px] font-bold uppercase mb-2 tracking-widest">
+                            <span>Level 1</span>
+                            <span>Level 2</span>
+                        </div>
+                        <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden mb-4">
+                            <div class="bg-black h-full w-[65%] transition-all duration-1000 ease-out"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 font-bold uppercase italic">Spend IDR 450.000 more to unlock free shipping & Level 2 benefits.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-12">
+        <div class="flex justify-center space-x-8 mb-6">
+            <img class="h-6 w-auto opacity-20" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="">
+        </div>
+        <p class="text-[10px] text-gray-400 uppercase font-bold tracking-[0.4em]">&copy; 2026 Adidas Indonesia | Rifky Candra</p>
+    </footer>
+
+</body>
+</html>
