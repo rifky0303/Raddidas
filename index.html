@@ -9,24 +9,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=AdihausDIN:wght@400;700&display=swap');
         body { font-family: 'AdihausDIN', sans-serif; overflow-x: hidden; }
-        
-        /* Gaya Card Adidas yang Solid */
-        .adidas-card {
-            transition: all 0.2s ease-in-out;
-            border: 1px solid #e5e7eb;
-        }
-        
-        .adidas-card:hover {
-            border-color: #000;
-            box-shadow: 8px 8px 0px 0px #000;
-            transform: translate(-4px, -4px);
-        }
-
-        .stripe-decorator {
-            height: 2px; width: 0; background: #000;
-            transition: width 0.3s ease;
-        }
-        
+        .adidas-card { transition: all 0.2s ease-in-out; border: 1px solid #e5e7eb; }
+        .adidas-card:hover { border-color: #000; box-shadow: 8px 8px 0px 0px #000; transform: translate(-4px, -4px); }
+        .stripe-decorator { height: 2px; width: 0; background: #000; transition: width 0.3s ease; }
         .adidas-card:hover .stripe-decorator { width: 40px; }
     </style>
 </head>
@@ -37,14 +22,15 @@
     </div>
 
     <nav class="sticky top-0 z-50 bg-white border-b-2 border-black px-6 lg:px-10 flex justify-between items-center h-20">
-        <img class="h-10 cursor-pointer" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas">
-        <div class="hidden lg:flex space-x-10 font-bold text-[11px] tracking-[0.2em] uppercase italic">
-            <a href="#" class="hover:text-blue-600 transition">Laki-Laki</a>
-            <a href="#" class="hover:text-blue-600 transition">Perempuan</a>
-            <a href="#" class="text-red-600">Sale</a>
+        <img class="h-10 cursor-pointer" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas" onclick="window.location.href='index.html'">
+        
+        <div class="hidden lg:flex items-center space-x-10">
+            <img src="https://i.pinimg.com/736x/98/15/0d/98150dccff03cf447af5cdcac53d4402.jpg" class="h-14 object-contain" alt="Store Logo">
+            <a href="#" class="text-red-600 font-bold text-[11px] tracking-[0.2em] uppercase italic">Sale</a>
         </div>
+
         <div class="flex items-center space-x-6">
-            <i class="fa-solid fa-bag-shopping text-xl cursor-pointer"></i>
+            <a href="keranjang.html" class="relative"><i class="fa-solid fa-bag-shopping text-xl cursor-pointer"></i></a>
             <a href="profile.html">
                 <img src="https://i.pinimg.com/736x/03/8a/f4/038af43d45ba955d98b887a0a803290b.jpg" class="w-10 h-10 rounded-full border-2 border-black object-cover hover:scale-110 transition">
             </a>
@@ -58,7 +44,7 @@
         <div class="relative z-10 px-10 text-white">
             <h1 class="text-7xl md:text-9xl font-bold italic uppercase tracking-tighter leading-none">MOVE<br>FORWARD.</h1>
             <p class="mt-4 text-sm tracking-[0.3em] font-bold uppercase italic opacity-80">Originals by Rifky Candra</p>
-            <button class="mt-8 bg-white text-black px-10 py-4 font-bold text-xs uppercase hover:bg-gray-200 transition shadow-lg">Beli Sekarang</button>
+            <button class="mt-8 bg-white text-black px-10 py-4 font-bold text-xs uppercase hover:bg-gray-200 transition">Beli Sekarang</button>
         </div>
     </header>
 
@@ -69,10 +55,9 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            
             <div class="adidas-card group bg-white p-4 flex flex-col h-full cursor-pointer">
                 <div class="relative bg-[#ebedee] aspect-square overflow-hidden mb-4">
-                    <img id="img-1" src="https://i.pinimg.com/736x/ca/1a/a2/ca1aa223278bd8d019155536d4f758e0.jpg" class="w-full h-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-110">
+                    <img src="https://i.pinimg.com/736x/ca/1a/a2/ca1aa223278bd8d019155536d4f758e0.jpg" class="w-full h-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-110">
                 </div>
                 <div class="flex-grow">
                     <div class="stripe-decorator mb-2"></div>
@@ -80,7 +65,10 @@
                     <h3 class="font-bold text-lg uppercase italic leading-tight mb-2">Samba OG Shoes</h3>
                     <p class="text-sm font-bold mb-6">IDR 1.850.000</p>
                 </div>
-                <button onclick="beliProduk('Samba OG Shoes', '1.850.000', 'https://i.pinimg.com/736x/ca/1a/a2/ca1aa223278bd8d019155536d4f758e0.jpg')" class="w-full bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                <div class="flex gap-2">
+                    <button onclick="tambahKeKeranjang('Samba OG Shoes', '1.850.000', 'https://i.pinimg.com/736x/ca/1a/a2/ca1aa223278bd8d019155536d4f758e0.jpg')" class="p-4 bg-gray-100 hover:bg-black hover:text-white transition"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button onclick="beliProduk('Samba OG Shoes', '1.850.000', 'https://i.pinimg.com/736x/ca/1a/a2/ca1aa223278bd8d019155536d4f758e0.jpg')" class="flex-grow bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                </div>
             </div>
 
             <div class="adidas-card group bg-white p-4 flex flex-col h-full cursor-pointer">
@@ -93,7 +81,10 @@
                     <h3 class="font-bold text-lg uppercase italic leading-tight mb-2">Gazelle Indoor</h3>
                     <p class="text-sm font-bold mb-6">IDR 1.700.000</p>
                 </div>
-                <button onclick="beliProduk('Gazelle Indoor', '1.700.000', 'https://i.pinimg.com/1200x/33/c5/c5/33c5c536b586a6fe5a79e31b38122297.jpg')" class="w-full bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                <div class="flex gap-2">
+                    <button onclick="tambahKeKeranjang('Gazelle Indoor', '1.700.000', 'https://i.pinimg.com/1200x/33/c5/c5/33c5c536b586a6fe5a79e31b38122297.jpg')" class="p-4 bg-gray-100 hover:bg-black hover:text-white transition"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button onclick="beliProduk('Gazelle Indoor', '1.700.000', 'https://i.pinimg.com/1200x/33/c5/c5/33c5c536b586a6fe5a79e31b38122297.jpg')" class="flex-grow bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                </div>
             </div>
 
             <div class="adidas-card group bg-white p-4 flex flex-col h-full cursor-pointer">
@@ -106,7 +97,10 @@
                     <h3 class="font-bold text-lg uppercase italic leading-tight mb-2">Ultraboost Light</h3>
                     <p class="text-sm font-bold mb-6">IDR 2.480.000</p>
                 </div>
-                <button onclick="beliProduk('Ultraboost Light', '2.480.000', 'https://i.pinimg.com/1200x/c3/4a/b9/c34ab989df8a766ce34ef6a60a052ab9.jpg')" class="w-full bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                <div class="flex gap-2">
+                    <button onclick="tambahKeKeranjang('Ultraboost Light', '2.480.000', 'https://i.pinimg.com/1200x/c3/4a/b9/c34ab989df8a766ce34ef6a60a052ab9.jpg')" class="p-4 bg-gray-100 hover:bg-black hover:text-white transition"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button onclick="beliProduk('Ultraboost Light', '2.480.000', 'https://i.pinimg.com/1200x/c3/4a/b9/c34ab989df8a766ce34ef6a60a052ab9.jpg')" class="flex-grow bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                </div>
             </div>
 
             <div class="adidas-card group bg-white p-4 flex flex-col h-full cursor-pointer">
@@ -119,9 +113,11 @@
                     <h3 class="font-bold text-lg uppercase italic leading-tight mb-2">Stan Smith Classic</h3>
                     <p class="text-sm font-bold mb-6">IDR 1.550.000</p>
                 </div>
-                <button onclick="beliProduk('Stan Smith Classic', '1.550.000', 'https://i.pinimg.com/1200x/72/8c/c7/728cc7bf45c9f33b7108ee52fbcc68f3.jpg')" class="w-full bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                <div class="flex gap-2">
+                    <button onclick="tambahKeKeranjang('Stan Smith Classic', '1.550.000', 'https://i.pinimg.com/1200x/72/8c/c7/728cc7bf45c9f33b7108ee52fbcc68f3.jpg')" class="p-4 bg-gray-100 hover:bg-black hover:text-white transition"><i class="fa-solid fa-cart-plus"></i></button>
+                    <button onclick="beliProduk('Stan Smith Classic', '1.550.000', 'https://i.pinimg.com/1200x/72/8c/c7/728cc7bf45c9f33b7108ee52fbcc68f3.jpg')" class="flex-grow bg-black text-white py-4 text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Beli Sekarang</button>
+                </div>
             </div>
-
         </div>
     </main>
 
@@ -133,13 +129,17 @@
     </footer>
 
     <script>
+        function tambahKeKeranjang(nama, harga, gambar) {
+            let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+            keranjang.push({ nama, harga, gambar });
+            localStorage.setItem('keranjang', JSON.stringify(keranjang));
+            alert(nama + " berhasil ditambahkan ke keranjang!");
+        }
+
         function beliProduk(nama, harga, gambar) {
-            // Simpan data ke localStorage agar bisa dibaca di checkout.html
-            localStorage.setItem('produkNama', nama);
-            localStorage.setItem('produkHarga', harga);
-            localStorage.setItem('produkGambar', gambar);
-            
-            // Pindah ke halaman checkout
+            // Perbaikan: Simpan sebagai array 'keranjang' agar terbaca di checkout
+            let produkLangsung = [{ nama, harga, gambar }];
+            localStorage.setItem('keranjang', JSON.stringify(produkLangsung));
             window.location.href = 'checkout.html';
         }
     </script>

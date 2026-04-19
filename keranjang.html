@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja | Adidas Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=AdihausDIN:wght@400;700&display=swap');
+        body { font-family: 'AdihausDIN', sans-serif; }
+    </style>
+</head>
+<body class="bg-white">
+    <nav class="border-b-2 border-black p-6 flex justify-between items-center">
+        <a href="index.html" class="font-bold uppercase italic tracking-widest flex items-center">
+            <i class="fa-solid fa-arrow-left mr-4"></i> Kembali Belanja
+        </a>
+        <h1 class="font-bold text-xl uppercase italic">Keranjang Anda</h1>
+        <div class="w-10"></div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-6 lg:p-10">
+        <div id="keranjang-list" class="space-y-6"></div>
+
+        <div id="empty-cart" class="hidden text-center py-20">
+            <i class="fa-solid fa-cart-shopping text-6xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500 font-bold uppercase">Keranjang Anda Kosong</p>
+        </div>
+
+        <div class="mt-10 border-t-4 border-black pt-6">
+            <div class="flex justify-between text-2xl font-bold uppercase italic">
+                <span>Total Estimasi</span>
+                <span id="total-harga">IDR 0</span>
+            </div>
+            <button onclick="pindahKeCheckout()" class="w-full bg-black text-white py-5 mt-6 font-bold uppercase tracking-widest hover:bg-gray-800 transition">
+                Checkout Sekarang
+            </button>
+        </div>
+    </main>
+
+    <script>
+        function displayKeranjang() {
+            const keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+            const listContainer = document.getElementById('keranjang-list');
+            const emptyState = document.getElementById('empty-cart');
+            let total = 0;
+
+            listContainer.innerHTML = '';
+
+            if (keranjang.length === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                keranjang.forEach((item, index) => {
+                    const hargaClean = parseInt(item.harga.replace(/\./g, ''));
+                    total += hargaClean;
+
+                    listContainer.innerHTML += `
+                        <div class="flex items-center border border-gray-200 p-4 group">
+                            <img src="${item.gambar}" class="w-24 h-24 object-cover bg-gray-100">
+                            <div class="ml-6 flex-grow">
+                                <h3 class="font-bold uppercase italic">${item.nama}</h3>
+                                <p class="text-sm font-bold mt-1">IDR ${item.harga}</p>
+                            </div>
+                            <button onclick="hapusItem(${index})" class="text-gray-400 hover:text-red-600 transition">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('total-harga').innerText = "IDR " + total.toLocaleString('id-ID');
+        }
+
+        function hapusItem(index) {
+            let keranjang = JSON.parse(localStorage.getItem('keranjang'));
+            keranjang.splice(index, 1);
+            localStorage.setItem('keranjang', JSON.stringify(keranjang));
+            displayKeranjang();
+        }
+
+        function pindahKeCheckout() {
+            const keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+            if (keranjang.length === 0) {
+                alert("Wah, keranjangmu masih kosong nih!");
+                return;
+            }
+            window.location.href = 'checkout.html';
+        }
+
+        displayKeranjang();
+    </script>
+</body>
+</html>

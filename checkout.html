@@ -10,23 +10,32 @@
         @import url('https://fonts.googleapis.com/css2?family=AdihausDIN:wght@400;700&display=swap');
         body { font-family: 'AdihausDIN', sans-serif; background-color: #fcfcfc; }
         .adidas-input { border: 1px solid #767677; padding: 12px; width: 100%; font-weight: bold; font-size: 12px; outline: none; }
-        .adidas-input:focus { border: 1px solid #000; }
+        
+        /* Notifikasi Alert Kanan Atas */
+        #payment-alert {
+            position: fixed; top: 20px; right: -400px;
+            background: #000; color: white; padding: 15px 25px;
+            font-weight: bold; font-size: 11px; text-transform: uppercase;
+            z-index: 999; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 10px; border-left: 4px solid #ef4444;
+        }
+        #payment-alert.show { right: 20px; }
 
-        /* Animasi QR */
+        /* Efek Glow di QR */
         @keyframes pulse-border {
             0% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.05); opacity: 0.2; }
             100% { transform: scale(1); opacity: 0.5; }
         }
         .qr-glow { position: absolute; inset: -10px; border: 2px solid #000; animation: pulse-border 2s infinite; z-index: -1; }
-        
-        /* Animasi Centang Berhasil */
-        .success-checkmark { width: 80px; height: 80px; margin: 0 auto; }
-        .check-icon { width: 80px; height: 80px; position: relative; border-radius: 50%; box-sizing: content-box; border: 4px solid #4CAF50; }
-        .check-icon::after { content: ''; position: absolute; left: 15px; top: 40px; width: 20px; height: 40px; border: solid #4CAF50; border-width: 0 4px 4px 0; transform: rotate(45deg); }
     </style>
 </head>
 <body class="text-black">
+
+    <div id="payment-alert">
+        <i class="fa-solid fa-circle-info text-red-500"></i>
+        <span>Sistem: Menunggu Verifikasi Pembayaran...</span>
+    </div>
 
     <nav class="bg-white border-b border-gray-200 py-6 px-10">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -37,7 +46,7 @@
 
     <main class="max-w-6xl mx-auto px-6 py-12">
         <h1 class="text-4xl font-bold italic uppercase tracking-tighter mb-10 text-center">Ringkasan Pembayaran</h1>
-
+        
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div class="lg:col-span-2 space-y-12">
                 <section>
@@ -55,7 +64,7 @@
                             <i class="fa-solid fa-qrcode text-2xl"></i>
                             <span class="font-bold text-sm tracking-widest uppercase">QRIS / SCAN QR</span>
                         </div>
-                        <span class="text-[10px] font-bold text-white bg-blue-600 px-2 py-1">OTOMATIS</span>
+                        <span class="text-[10px] font-bold text-white bg-blue-600 px-2 py-1 uppercase">Otomatis</span>
                     </div>
                 </section>
             </div>
@@ -63,34 +72,13 @@
             <div class="lg:col-span-1">
                 <div class="bg-white border border-gray-200 p-8 shadow-sm">
                     <h3 class="text-xl font-bold uppercase italic mb-6">Pesanan Anda</h3>
-                    
-                    <div class="flex gap-4 mb-6 border-b border-gray-100 pb-6">
-                        <div class="w-24 h-24 bg-gray-100 flex-shrink-0">
-                            <img id="checkout-img" src="" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <p id="checkout-nama" class="font-bold uppercase text-xs italic">NAMA BARANG</p>
-                            <p class="text-[10px] text-gray-400 font-bold uppercase">UKURAN: 42</p>
-                            <p id="checkout-harga" class="font-bold text-sm mt-2">IDR 0</p>
-                        </div>
-                    </div>
-
+                    <div id="item-summary" class="space-y-4 mb-6 border-b border-gray-100 pb-6"></div>
                     <div class="space-y-3 text-xs font-bold uppercase">
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">Subtotal</span>
-                            <span id="subtotal">IDR 0</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">Pengiriman</span>
-                            <span class="text-green-600">GRATIS</span>
-                        </div>
-                        <div class="flex justify-between text-lg border-t border-black pt-4 mt-4">
-                            <span>Total</span>
-                            <span id="total-akhir">IDR 0</span>
-                        </div>
+                        <div class="flex justify-between"><span>Subtotal</span><span id="subtotal">IDR 0</span></div>
+                        <div class="flex justify-between"><span>Pengiriman</span><span class="text-green-600">GRATIS</span></div>
+                        <div class="flex justify-between text-lg border-t border-black pt-4 mt-4"><span>Total</span><span id="total-akhir">IDR 0</span></div>
                     </div>
-
-                    <button onclick="bukaModalQR()" class="w-full bg-black text-white py-4 mt-8 font-bold uppercase tracking-widest hover:bg-zinc-800 transition shadow-lg active:scale-95">Bayar Sekarang</button>
+                    <button onclick="mulaiPembayaran()" class="w-full bg-black text-white py-4 mt-8 font-bold uppercase tracking-widest hover:bg-zinc-800 transition">Bayar Sekarang</button>
                     <a href="index.html" class="block text-center mt-4 text-[10px] font-bold uppercase underline">Batal & Kembali</a>
                 </div>
             </div>
@@ -98,90 +86,121 @@
     </main>
 
     <div id="modalQR" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-6 backdrop-blur-sm">
-        <div id="modalContent" class="bg-white max-w-sm w-full p-8 text-center relative border-4 border-black transition-all">
+        <div class="bg-white max-w-sm w-full p-8 text-center relative border-4 border-black">
             
-            <div id="step-qr">
-                <button onclick="tutupModalQR()" class="absolute -top-12 right-0 text-white text-3xl">&times;</button>
-                <h2 class="text-2xl font-bold italic uppercase mb-2">Pindai QRIS</h2>
-                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-6">Silakan selesaikan pembayaran</p>
-                
-                <div class="relative inline-block mb-6">
-                    <div class="qr-glow"></div>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" class="w-48 h-48 border border-gray-100 p-2">
-                </div>
+            <button id="btn-x" onclick="prosesStatus('gagal')" class="absolute top-4 right-4 text-black hover:text-red-600 transition">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
 
-                <div class="bg-gray-100 p-4 mb-6 text-left">
-                    <div class="flex justify-between text-[10px] font-bold uppercase text-gray-400">
-                        <span>Total Bayar</span>
-                        <span>Menunggu...</span>
+            <div id="step-qr">
+                <h2 class="text-2xl font-bold italic uppercase mb-1">Pindai QRIS</h2>
+                <p class="text-[9px] text-gray-400 uppercase font-bold tracking-widest mb-4">Silakan selesaikan pembayaran</p>
+                <div class="relative inline-block my-6">
+                    <div class="qr-glow"></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" class="w-44 h-44 border p-2">
+                </div>
+                <div class="bg-gray-100 p-4 mb-4 flex justify-between items-center text-left">
+                    <div>
+                        <p class="text-[8px] font-bold text-gray-400 uppercase">Total Bayar</p>
+                        <p id="modal-total-display" class="text-lg font-bold italic">IDR 0</p>
                     </div>
-                    <div class="flex justify-between items-center mt-1">
-                        <span id="modal-total" class="text-lg font-bold italic tracking-tight">IDR 0</span>
-                        <div class="flex space-x-1">
-                            <div class="w-2 h-2 bg-black rounded-full animate-bounce"></div>
-                            <div class="w-2 h-2 bg-black rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                            <div class="w-2 h-2 bg-black rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div class="text-right">
+                        <div class="flex gap-1 justify-end">
+                            <span class="w-1.5 h-1.5 bg-black rounded-full animate-bounce"></span>
+                            <span class="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                            <span class="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:0.4s]"></span>
                         </div>
                     </div>
                 </div>
-                <p class="text-[9px] font-bold uppercase text-gray-400 leading-tight">Menunggu pembayaran Anda terdeteksi...</p>
+                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-tighter">Menunggu pembayaran anda terdeteksi...</p>
             </div>
 
-            <div id="step-success" class="hidden py-4">
-                <div class="success-checkmark mb-6">
-                    <div class="check-icon"></div>
+            <div id="step-success" class="hidden py-8">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-check text-4xl text-green-600"></i>
                 </div>
-                <h2 class="text-3xl font-bold italic uppercase mb-2">Pembayaran Berhasil</h2>
-                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-8">Pesanan Anda telah dikonfirmasi dan sedang diproses.</p>
-                
-                <div class="space-y-3">
-                    <button onclick="window.location.href='index.html'" class="w-full bg-black text-white py-4 font-bold uppercase tracking-widest hover:bg-zinc-800 transition">Kembali ke Beranda</button>
-                    <button class="w-full border-2 border-black py-3 font-bold uppercase text-[10px] tracking-widest hover:bg-gray-100 transition">Unduh E-Receipt</button>
+                <h2 class="text-2xl font-bold text-green-600 italic uppercase">Berhasil!</h2>
+                <p class="text-[10px] text-gray-500 font-bold mt-2 uppercase">Transaksi Selesai</p>
+                <button onclick="selesaiCheckout()" class="mt-8 w-full bg-black text-white py-4 font-bold uppercase tracking-widest">Kembali ke Home</button>
+            </div>
+
+            <div id="step-error" class="hidden py-8">
+                <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-xmark text-4xl text-red-600"></i>
                 </div>
+                <h2 class="text-2xl font-bold text-red-600 italic uppercase">Pembayaran Gagal</h2>
+                <p class="text-[10px] text-gray-500 font-bold mt-2 uppercase">Transaksi Dibatalkan</p>
+                <button onclick="mulaiPembayaran()" class="mt-8 w-full bg-red-600 text-white py-4 font-bold uppercase tracking-widest">Coba Lagi</button>
             </div>
 
         </div>
     </div>
 
     <script>
-        window.onload = function() {
-            const nama = localStorage.getItem('produkNama');
-            const harga = localStorage.getItem('produkHarga');
-            const gambar = localStorage.getItem('produkGambar');
+        let timerPembayaran;
 
-            if(nama) {
-                document.getElementById('checkout-nama').innerText = nama;
-                document.getElementById('checkout-harga').innerText = 'IDR ' + harga;
-                document.getElementById('checkout-img').src = gambar;
-                document.getElementById('subtotal').innerText = 'IDR ' + harga;
-                document.getElementById('total-akhir').innerText = 'IDR ' + harga;
-                document.getElementById('modal-total').innerText = 'IDR ' + harga;
-            }
+        // Load data dari LocalStorage
+        window.onload = function() {
+            const keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+            const container = document.getElementById('item-summary');
+            let total = 0;
+            if(keranjang.length === 0) return;
+
+            keranjang.forEach(item => {
+                total += parseInt(item.harga.replace(/[^0-9]/g, ''));
+                container.innerHTML += `
+                    <div class="flex gap-4">
+                        <img src="${item.gambar}" class="w-16 h-16 object-cover bg-gray-100">
+                        <div><p class="font-bold text-[10px] uppercase">${item.nama}</p><p class="text-xs font-bold">IDR ${item.harga}</p></div>
+                    </div>`;
+            });
+            const formatted = 'IDR ' + total.toLocaleString('id-ID');
+            document.getElementById('subtotal').innerText = formatted;
+            document.getElementById('total-akhir').innerText = formatted;
+            document.getElementById('modal-total-display').innerText = formatted;
         }
 
-        function bukaModalQR() {
+        function mulaiPembayaran() {
+            // Reset modal ke tampilan awal (QR)
             document.getElementById('modalQR').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            document.getElementById('step-qr').classList.remove('hidden');
+            document.getElementById('btn-x').classList.remove('hidden');
+            document.getElementById('step-success').classList.add('hidden');
+            document.getElementById('step-error').classList.add('hidden');
 
-            // Simulasi: Setelah 5 detik, anggap pembayaran berhasil
-            setTimeout(() => {
-                tampilkanSukses();
+            // Munculkan Alert Kanan Atas
+            const alertBox = document.getElementById('payment-alert');
+            alertBox.classList.add('show');
+            setTimeout(() => alertBox.classList.remove('show'), 3000);
+
+            // Timer Otomatis BERHASIL dalam 5 detik
+            clearTimeout(timerPembayaran);
+            timerPembayaran = setTimeout(() => {
+                prosesStatus('sukses');
             }, 5000);
         }
 
-        function tampilkanSukses() {
+        function prosesStatus(status) {
+            // Matikan timer otomatis jika user klik X duluan
+            clearTimeout(timerPembayaran);
+
+            // Sembunyikan QR dan Tombol X
             document.getElementById('step-qr').classList.add('hidden');
-            document.getElementById('step-success').classList.remove('hidden');
-            // Menambah getaran sedikit (untuk HP yang mendukung)
-            if (navigator.vibrate) navigator.vibrate(200);
+            document.getElementById('btn-x').classList.add('hidden');
+
+            // Tampilkan salah satu box sesuai status
+            if (status === 'sukses') {
+                document.getElementById('step-success').classList.remove('hidden');
+                document.getElementById('step-error').classList.add('hidden');
+            } else {
+                document.getElementById('step-error').classList.remove('hidden');
+                document.getElementById('step-success').classList.add('hidden');
+            }
         }
 
-        function tutupModalQR() {
-            document.getElementById('modalQR').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            // Reset modal ke tampilan QR jika ditutup
-            document.getElementById('step-qr').classList.remove('hidden');
-            document.getElementById('step-success').classList.add('hidden');
+        function selesaiCheckout() {
+            localStorage.removeItem('keranjang');
+            window.location.href = 'index.html';
         }
     </script>
 </body>
